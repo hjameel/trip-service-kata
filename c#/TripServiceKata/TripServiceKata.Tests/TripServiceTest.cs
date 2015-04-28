@@ -25,7 +25,7 @@ namespace TripServiceKata.Tests
 		{
 			public User.User LoggedUser { get; set; }
 
-			protected override TripServiceKata.User.User GetLoggedUser()
+			protected override User.User GetLoggedUser()
 			{
 				return LoggedUser;
 			}
