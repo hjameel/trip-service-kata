@@ -1,0 +1,43 @@
+# Java Ignores
+/java/trip-service-kata/target
+/java/trip-service-kata/.classpath
+/java/trip-service-kata/.project
+/java/trip-service-kata/.settings
+/java/trip-service-kata/tomcat.*
+/java/trip-service-kata/.idea
+/java/trip-service-kata/*.iml
+
+# C# Ignores
+_ReSharper.*/
+[Bb]in
+[Oo]bj
+*.suo
+*.user
+_NCrunch_*/
+
+# Python Ignores
+*.pyc
+
+#php netbeans
+php/nbproject/
+
+# Ignore Vim undo history
+*.un~
+
+# sbt specific
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# Scala-IDE specific
+.scala_dependencies
+
+# IntelliJ IDEA
+.idea/
+.idea_modules
+out/
+*.iml
+**/.idea
