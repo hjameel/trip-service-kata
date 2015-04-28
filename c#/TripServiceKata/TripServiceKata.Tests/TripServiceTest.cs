@@ -1,27 +1,34 @@
 ﻿using NUnit.Framework;
-using TripServiceKata.Trip;
 using TripServiceKata.Exception;
+using TripServiceKata.Trip;
 
 namespace TripServiceKata.Tests
 {
 	public class when_get_trips_by_user_is_called
 	{
 		[TestFixture]
-	    public class given_no_user_logged_in
-	    {
+		public class given_no_user_logged_in
+		{
 			[Test]
 			public void it_should_throw_a_user_not_logged_on_exception()
 			{
-				Assert.That(() => new TestableTripService().GetTripsByUser(null), Throws.TypeOf<UserNotLoggedInException>());
-			}
-	    }
-	}
+				var tripService = new TestableTripService() { LoggedUser = NotLoggedInUser };
 
-	public class TestableTripService : TripService
-	{
-		protected override TripServiceKata.User.User GetLoggedUser()
+				Assert.That(() => tripService.GetTripsByUser(AnotherUser), Throws.TypeOf<UserNotLoggedInException>());
+			}
+		}
+
+		private const User.User NotLoggedInUser = null;
+		private const User.User AnotherUser = null;
+
+		public class TestableTripService : TripService
 		{
-			return null;
+			public User.User LoggedUser { get; set; }
+
+			protected override TripServiceKata.User.User GetLoggedUser()
+			{
+				return LoggedUser;
+			}
 		}
 	}
 }
