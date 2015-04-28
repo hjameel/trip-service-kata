@@ -11,6 +11,8 @@
     <AssemblyName>TripServiceKata.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,4 +61,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\TripServiceKata\TripServiceKata.csproj">
+      <Project>{45E49CBA-0800-4391-AD80-E23837C66D95}</Project>
+      <Name>TripServiceKata</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
