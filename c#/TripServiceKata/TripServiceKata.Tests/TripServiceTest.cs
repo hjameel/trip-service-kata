@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using TripServiceKata.Exception;
 using TripServiceKata.Trip;
+using System.Collections.Generic;
 
 namespace TripServiceKata.Tests
 {
@@ -41,15 +42,32 @@ namespace TripServiceKata.Tests
 
 				Assert.That(tripService.GetTripsByUser(Friend), Is.Empty);
 			}
+
+			[Test]
+			public void it_should_return_list_of_trips_if_users_are_friends()
+			{
+				Friend.AddFriend(User);
+				var trip = new Trip.Trip();
+
+				var tripService = new TestableTripService() { LoggedInUser = User, Trips = new List<Trip.Trip> {trip} };
+
+				Assert.That(tripService.GetTripsByUser(Friend), Contains.Item(trip));
+			}
 		}
 
 		public class TestableTripService : TripService
 		{
 			public User.User LoggedInUser { get; set; }
+			public List<Trip.Trip> Trips { get; set; }
 
 			protected override User.User GetLoggedInUser()
 			{
 				return LoggedInUser;
+			}
+
+			protected override List<Trip.Trip> FindTripsByUser(User.User user)
+			{
+				return Trips;
 			}
 		}
 	}
