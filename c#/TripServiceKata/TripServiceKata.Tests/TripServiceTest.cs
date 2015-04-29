@@ -24,9 +24,11 @@ namespace TripServiceKata.Tests
 			[Test]
 			public void it_should_return_no_trips_if_users_are_not_friends()
 			{
-				var tripService = new TestableTripService() { LoggedInUser = new User.User() };
+				var user = new User.User();
+				var friend = new User.User();
+				var tripService = new TestableTripService() { LoggedInUser = user };
 
-				Assert.That(tripService.GetTripsByUser(new User.User()), Is.Empty);
+				Assert.That(tripService.GetTripsByUser(friend), Is.Empty);
 			}
 		}
 
