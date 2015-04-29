@@ -9,6 +9,9 @@ namespace TripServiceKata.Tests
 		[TestFixture]
 		public class given_no_user_logged_in
 		{
+			private const User.User NotLoggedInUser = null;
+			private const User.User AnotherUser = null;
+
 			[Test]
 			public void it_should_throw_a_user_not_logged_on_exception()
 			{
@@ -21,19 +24,24 @@ namespace TripServiceKata.Tests
 		[TestFixture]
 		public class given_user_is_logged_in
 		{
+			User.User User;
+			User.User Friend;
+
+			[SetUp]
+			public void SetUp()
+			{
+				User = new User.User();
+				Friend = new User.User();
+			}
+
 			[Test]
 			public void it_should_return_no_trips_if_users_are_not_friends()
 			{
-				var user = new User.User();
-				var friend = new User.User();
-				var tripService = new TestableTripService() { LoggedInUser = user };
+				var tripService = new TestableTripService() { LoggedInUser = User };
 
-				Assert.That(tripService.GetTripsByUser(friend), Is.Empty);
+				Assert.That(tripService.GetTripsByUser(Friend), Is.Empty);
 			}
 		}
-
-		private const User.User NotLoggedInUser = null;
-		private const User.User AnotherUser = null;
 
 		public class TestableTripService : TripService
 		{
