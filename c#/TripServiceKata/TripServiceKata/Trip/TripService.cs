@@ -13,7 +13,7 @@ namespace TripServiceKata.Trip
             bool isFriend = false;
             if (loggedUser != null)
             {
-                foreach(User.User friend in user.GetFriends())
+                foreach (User.User friend in user.GetFriends())
                 {
                     if (friend.Equals(loggedUser))
                     {
@@ -23,7 +23,7 @@ namespace TripServiceKata.Trip
                 }
                 if (isFriend)
                 {
-					tripList = FindTripsByUser(user);
+                    tripList = FindTripsByUser(user);
                 }
                 return tripList;
             }
@@ -33,14 +33,14 @@ namespace TripServiceKata.Trip
             }
         }
 
-		protected virtual TripServiceKata.User.User GetLoggedInUser()
-		{
-			return UserSession.GetInstance().GetLoggedUser();
-		}
+        protected virtual TripServiceKata.User.User GetLoggedInUser()
+        {
+            return UserSession.GetInstance().GetLoggedUser();
+        }
 
-		protected virtual List<Trip> FindTripsByUser(TripServiceKata.User.User user)
-		{
-			return TripDAO.FindTripsByUser(user);
-		}
+        protected virtual List<Trip> FindTripsByUser(TripServiceKata.User.User user)
+        {
+            return TripDAO.FindTripsByUser(user);
+        }
     }
 }
