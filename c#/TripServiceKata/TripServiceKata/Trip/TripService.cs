@@ -9,7 +9,7 @@ namespace TripServiceKata.Trip
         public List<Trip> GetTripsByUser(User.User user)
         {
             List<Trip> tripList = new List<Trip>();
-            User.User loggedUser = GetLoggedUser();
+            User.User loggedUser = GetLoggedInUser();
             bool isFriend = false;
             if (loggedUser != null)
             {
@@ -33,7 +33,7 @@ namespace TripServiceKata.Trip
             }
         }
 
-		protected virtual TripServiceKata.User.User GetLoggedUser()
+		protected virtual TripServiceKata.User.User GetLoggedInUser()
 		{
 			return UserSession.GetInstance().GetLoggedUser();
 		}
