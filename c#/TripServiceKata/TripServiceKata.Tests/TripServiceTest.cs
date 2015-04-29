@@ -18,6 +18,18 @@ namespace TripServiceKata.Tests
 			}
 		}
 
+		[TestFixture]
+		public class given_user_is_logged_in
+		{
+			[Test]
+			public void it_should_return_no_trips_if_users_are_not_friends()
+			{
+				var tripService = new TestableTripService() { LoggedInUser = new User.User() };
+
+				Assert.That(tripService.GetTripsByUser(new User.User()), Is.Empty);
+			}
+		}
+
 		private const User.User NotLoggedInUser = null;
 		private const User.User AnotherUser = null;
 
