@@ -50,6 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TripServiceTest.cs" />
     <Compile Include="UserTest.cs" />
+    <Compile Include="TripDAOTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

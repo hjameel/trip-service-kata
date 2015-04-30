@@ -16,9 +16,9 @@ namespace TripServiceKata.Tests
             [Test]
             public void it_should_throw_a_user_not_logged_on_exception()
             {
-                var tripService = new TestableTripService(new StubUserSession() { LoggedInUser = NotLoggedInUser });
+                var tripService = new TripService(new StubTripDao());
 
-                Assert.That(() => tripService.GetTripsByUser(AnotherUser), Throws.TypeOf<UserNotLoggedInException>());
+                Assert.That(() => tripService.GetTripsByUser(AnotherUser, NotLoggedInUser), Throws.TypeOf<UserNotLoggedInException>());
             }
         }
 
@@ -35,15 +35,14 @@ namespace TripServiceKata.Tests
             {
                 _user = new User.User();
                 _anotherUser = new User.User();
-                User.IUserSession userSession = new StubUserSession() { LoggedInUser = _user };
                 _tripList = new List<Trip.Trip> { new Trip.Trip() };
-                _tripService = new TestableTripService(userSession) { Trips = _tripList };
+                _tripService = new TripService(new StubTripDao() { Trips = _tripList });
             }
 
             [Test]
             public void it_should_return_no_trips_if_users_are_not_friends()
             {
-                Assert.That(_tripService.GetTripsByUser(_anotherUser), Is.Empty);
+                Assert.That(_tripService.GetTripsByUser(_anotherUser, _user), Is.Empty);
             }
 
             [Test]
@@ -51,31 +50,17 @@ namespace TripServiceKata.Tests
             {
                 _anotherUser.AddFriend(_user);
 
-                Assert.That(_tripService.GetTripsByUser(_anotherUser), Is.EqualTo(_tripList));
+                Assert.That(_tripService.GetTripsByUser(_anotherUser, _user), Is.EqualTo(_tripList));
             }
         }
 
-        public class TestableTripService : TripService
+        public class StubTripDao : ITripDAO
         {
             public List<Trip.Trip> Trips { get; set; }
 
-            public TestableTripService(User.IUserSession userSession) : base(userSession)
-            {
-            }
-
-            protected override List<Trip.Trip> FindTripsByUser(User.User user)
+            public List<Trip.Trip> FindUsersTrips(TripServiceKata.User.User user)
             {
                 return Trips;
-            }
-        }
-
-        public class StubUserSession : User.IUserSession
-        {
-            public User.User LoggedInUser { get; set; }
-
-            public User.User GetLoggedInUser()
-            {
-                return LoggedInUser;
             }
         }
     }
