@@ -18,7 +18,7 @@ namespace TripServiceKata.Tests
             {
                 var tripService = new TripService(new StubTripDao());
 
-                Assert.That(() => tripService.GetTripsByUser(AnotherUser, NotLoggedInUser), Throws.TypeOf<UserNotLoggedInException>());
+                Assert.That(() => tripService.GetFriendsTrips(AnotherUser, NotLoggedInUser), Throws.TypeOf<UserNotLoggedInException>());
             }
         }
 
@@ -42,7 +42,7 @@ namespace TripServiceKata.Tests
             [Test]
             public void it_should_return_no_trips_if_users_are_not_friends()
             {
-                Assert.That(_tripService.GetTripsByUser(_anotherUser, _user), Is.Empty);
+                Assert.That(_tripService.GetFriendsTrips(_anotherUser, _user), Is.Empty);
             }
 
             [Test]
@@ -50,7 +50,7 @@ namespace TripServiceKata.Tests
             {
                 _anotherUser.AddFriend(_user);
 
-                Assert.That(_tripService.GetTripsByUser(_anotherUser, _user), Is.EqualTo(_tripList));
+                Assert.That(_tripService.GetFriendsTrips(_anotherUser, _user), Is.EqualTo(_tripList));
             }
         }
 
