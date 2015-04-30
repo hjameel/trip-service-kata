@@ -25,33 +25,34 @@ namespace TripServiceKata.Tests
         [TestFixture]
         public class given_user_is_logged_in
         {
-            User.User User;
-            User.User Friend;
+            User.User _user;
+            User.User _friend;
+            TripServiceKata.Trip.Trip _trip;
 
             [SetUp]
             public void SetUp()
             {
-                User = new User.User();
-                Friend = new User.User();
+                _user = new User.User();
+                _friend = new User.User();
+                _trip = new Trip.Trip();
             }
 
             [Test]
             public void it_should_return_no_trips_if_users_are_not_friends()
             {
-                var tripService = new TestableTripService() { LoggedInUser = User };
+                var tripService = new TestableTripService() { LoggedInUser = _user, Trips = new List<Trip.Trip> {_trip} };
 
-                Assert.That(tripService.GetTripsByUser(Friend), Is.Empty);
+                Assert.That(tripService.GetTripsByUser(_friend), Is.Empty);
             }
 
             [Test]
             public void it_should_return_list_of_trips_if_users_are_friends()
             {
-                Friend.AddFriend(User);
-                var trip = new Trip.Trip();
+                _friend.AddFriend(_user);
 
-                var tripService = new TestableTripService() { LoggedInUser = User, Trips = new List<Trip.Trip> {trip} };
+                var tripService = new TestableTripService() { LoggedInUser = _user, Trips = new List<Trip.Trip> {_trip} };
 
-                Assert.That(tripService.GetTripsByUser(Friend), Contains.Item(trip));
+                Assert.That(tripService.GetTripsByUser(_friend), Contains.Item(_trip));
             }
         }
 
