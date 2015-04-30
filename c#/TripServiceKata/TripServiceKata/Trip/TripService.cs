@@ -15,12 +15,18 @@ namespace TripServiceKata.Trip
 
         public List<Trip> GetTripsByUser(User.User user)
         {
+            CheckThatUserIsLoggedIn();
+
+            return user.IsFriendsWith(_userSession.GetLoggedInUser())
+                ? FindTripsByUser(user) : new List<Trip>();
+        }
+
+        private void CheckThatUserIsLoggedIn()
+        {
             if (_userSession.GetLoggedInUser() == null)
             {
                 throw new UserNotLoggedInException();
             }
-            return user.IsFriendsWith(_userSession.GetLoggedInUser())
-                ? FindTripsByUser(user) : new List<Trip>();
         }
 
         protected virtual List<Trip> FindTripsByUser(TripServiceKata.User.User user)
