@@ -27,21 +27,21 @@ namespace TripServiceKata.Tests
         {
             User.User _user;
             User.User _friend;
-            TripServiceKata.Trip.Trip _trip;
+            List<Trip.Trip> _tripList;
+            TripService tripService;
 
             [SetUp]
             public void SetUp()
             {
                 _user = new User.User();
                 _friend = new User.User();
-                _trip = new Trip.Trip();
+                _tripList = new List<Trip.Trip> {new Trip.Trip() };
+                tripService = new TestableTripService() { LoggedInUser = _user, Trips = _tripList };
             }
 
             [Test]
             public void it_should_return_no_trips_if_users_are_not_friends()
             {
-                var tripService = new TestableTripService() { LoggedInUser = _user, Trips = new List<Trip.Trip> {_trip} };
-
                 Assert.That(tripService.GetTripsByUser(_friend), Is.Empty);
             }
 
@@ -50,9 +50,7 @@ namespace TripServiceKata.Tests
             {
                 _friend.AddFriend(_user);
 
-                var tripService = new TestableTripService() { LoggedInUser = _user, Trips = new List<Trip.Trip> {_trip} };
-
-                Assert.That(tripService.GetTripsByUser(_friend), Contains.Item(_trip));
+                Assert.That(tripService.GetTripsByUser(_friend), Is.EqualTo(_tripList));
             }
         }
 
